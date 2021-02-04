@@ -3,8 +3,10 @@ package lt.itacademy.java.basics;
 public class Optionals {
     public static final char RECURRING_LETTER = 'a';
     public static void main(String[] args){
-        System.out.println(isPasswordValid("qwertyebdht66"));
-        System.out.println(getNumOfRecurrences(10, "abcacabcac"));
+        if(isPasswordValid("qwertyebdht66")){
+            System.out.println("Password is valid.");
+        }
+        System.out.println(getNumOfRecurrences(10, "abcac"));
         System.out.println(sumOfString("103", "563"));
 
     }
@@ -26,17 +28,22 @@ public class Optionals {
         return numDigits >= 2;
     }
 
-    public static int getNumOfRecurrences(long times, String infString) {
-        int j = 0;
-        int numRecurrences = 0;
-        for(int i = 0; i < times; i++){
-            if(j >= infString.length()){
-                j = 0;
-            }
-            if(infString.charAt(j) == RECURRING_LETTER){
+    public static long getNumOfRecurrences(long times, String infString) {
+        long numRecurrences = 0;
+        long numSubstrings = (times / infString.length());
+        long lenLeftoverSubstrings = times % infString.length();
+
+        for(int i = 0; i < infString.length(); i++) {
+            if(infString.charAt(i) == RECURRING_LETTER){
                 ++numRecurrences;
             }
-            ++j;
+        }
+        numRecurrences *= numSubstrings;
+
+        for(int i = 0; i < lenLeftoverSubstrings; i++) {
+            if(infString.charAt(i) == RECURRING_LETTER){
+                ++numRecurrences;
+            }
         }
         return numRecurrences;
     }
